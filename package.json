@@ -23,7 +23,7 @@
         "mg": "npm run-script build && npx typeorm migration:generate",
         "mr": "npm run-script build && npx typeorm migration:run",
         "m:revert": "npm run-script build && npx typeorm migration:revert",
-        "heroku-prebuild": "npm install -f"
+        "heroku-postbuild": "npm install --only=dev --no-shrinkwrap && npm run build"
     },
     "engine": {
         "node": "v14.18.0",
