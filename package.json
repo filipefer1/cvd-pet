@@ -22,9 +22,7 @@
         "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
         "mg": "npm run-script build && npx typeorm migration:generate",
         "mr": "npm run-script build && npx typeorm migration:run",
-        "m:revert": "npm run-script build && npx typeorm migration:revert",
-        "heroku-prebuild": "npm install -f",
-        "heroku-postbuild": "npm run build && npm run start:prod"
+        "m:revert": "npm run-script build && npx typeorm migration:revert"
     },
     "dependencies": {
         "@nestjs/common": "^7.6.15",
