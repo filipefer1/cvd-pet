@@ -6,37 +6,55 @@ import {
     Patch,
     Param,
     Delete,
+    UseGuards,
+    ValidationPipe,
+    HttpCode,
 } from '@nestjs/common';
+import { UserLogged } from '../../auth/decorators/user-logged.decorator';
+import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
+import { IUserLogged } from '../../auth/interfaces/user-logged';
 import { CreatePetDto } from '../../pets/dto/create-pet.dto';
 import { UpdatePetDto } from '../../pets/dto/update-pet.dto';
 import { PetsService } from '../../pets/pets.service';
 
+@UseGuards(JwtAuthGuard)
 @Controller('pets')
 export class PetsController {
     constructor(private readonly petsService: PetsService) {}
 
     @Post()
-    create(@Body() createPetDto: CreatePetDto) {
-        return this.petsService.create(createPetDto);
+    create(
+        @UserLogged() user: IUserLogged,
+        @Body(ValidationPipe) createPetDto: CreatePetDto,
+    ) {
+        return this.petsService.create({
+            ...createPetDto,
+            userId: user.userId,
+        });
     }
 
     @Get()
-    findAll() {
-        return this.petsService.findAll('teste');
+    findAll(@UserLogged() user: IUserLogged) {
+        return this.petsService.findAll(user.userId);
     }
 
     @Get(':id')
-    findOne(@Param('id') id: string) {
-        return this.petsService.findOne(+id);
+    findOne(@Param('id') petId: string, @UserLogged() user: IUserLogged) {
+        return this.petsService.findOne(petId, user.userId);
     }
 
     @Patch(':id')
-    update(@Param('id') id: string, @Body() updatePetDto: UpdatePetDto) {
-        return this.petsService.update(+id, updatePetDto);
+    update(
+        @Param('id') id: string,
+        @Body() updatePetDto: UpdatePetDto,
+        @UserLogged() user: IUserLogged,
+    ) {
+        return this.petsService.update(id, user.userId, updatePetDto);
     }
 
     @Delete(':id')
-    remove(@Param('id') id: string) {
-        return this.petsService.remove(+id);
+    @HttpCode(204)
+    remove(@Param('id') id: string, @UserLogged() user: IUserLogged) {
+        return this.petsService.remove(id, user.userId);
     }
 }
