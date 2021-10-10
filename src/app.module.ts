@@ -6,7 +6,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { BffModule } from './modules/bff/bff.module';
 
 @Module({
-    // imports: [TypeOrmModule.forRoot(), BffModule, AuthModule],
+    imports: [TypeOrmModule.forRoot(), BffModule, AuthModule],
     controllers: [AppController],
     providers: [AppService],
 })
