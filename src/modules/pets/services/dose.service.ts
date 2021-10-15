@@ -1,14 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { CreatePetDto } from '../dto/create-pet.dto';
-import { PetRepository } from '../pets.repository';
+import { DoseRepository } from '../repositories/dose.repository';
 
 @Injectable()
 export class DoseService {
-    constructor(private readonly petRepository: PetRepository) {}
-
-    async create(dto: CreatePetDto) {
-        const pet = this.petRepository.create(dto);
-
-        return this.petRepository.save(pet);
-    }
+    constructor(private readonly doseRepository: DoseRepository) {}
 }

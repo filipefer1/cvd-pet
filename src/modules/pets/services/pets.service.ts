@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreatePetDto } from '../dto/create-pet.dto';
 import { UpdatePetDto } from '../dto/update-pet.dto';
 import { Pet } from '../entities/pet.entity';
-import { PetRepository } from '../pets.repository';
+import { PetRepository } from '../repositories/pets.repository';
 
 @Injectable()
 export class PetsService {
