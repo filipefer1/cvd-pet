@@ -15,7 +15,7 @@ import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
 import { IUserLogged } from '../../auth/interfaces/user-logged';
 import { CreatePetDto } from '../../pets/dto/create-pet.dto';
 import { UpdatePetDto } from '../../pets/dto/update-pet.dto';
-import { PetsService } from '../../pets/pets.service';
+import { PetsService } from '../../pets/services/pets.service';
 
 @UseGuards(JwtAuthGuard)
 @Controller('pets')
