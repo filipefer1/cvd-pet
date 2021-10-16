@@ -4,8 +4,8 @@ import { PetVaccines } from './pet-vaccines.entity';
 
 @Entity()
 export class Dose extends EntityBase {
-    @Column()
-    application_date: Date;
+    @Column({ nullable: true })
+    application_date?: Date;
 
     @Column()
     expiration_date: Date;
@@ -16,17 +16,15 @@ export class Dose extends EntityBase {
     @Column()
     order: number;
 
-    @Column()
-    dosage: string;
+    @Column({ nullable: true })
+    dosage?: string;
+
+    @Column({ nullable: true })
+    veterinary?: string;
+
+    @ManyToOne(() => PetVaccines, (petVaccines) => petVaccines.doses)
+    petVaccines: string;
 
     @Column()
-    veterinary: string;
-
-    @ManyToOne(() => PetVaccines, (petVaccines) => petVaccines.doses, {
-        cascade: true,
-    })
-    pet_vaccines: string;
-
-    @Column()
-    pet_vaccines_id: string;
+    petVaccinesId: string;
 }

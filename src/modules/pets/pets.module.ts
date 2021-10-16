@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { PetRepository } from './repositories/pets.repository';
 import { DoseRepository } from './repositories/dose.repository';
 import { PetVaccinesRepository } from './repositories/pet-vaccines.repository';
+import { PetVaccinesService } from './services/pet-vaccines.service';
 
 @Module({
     imports: [
@@ -13,7 +14,7 @@ import { PetVaccinesRepository } from './repositories/pet-vaccines.repository';
             PetVaccinesRepository,
         ]),
     ],
-    providers: [PetsService],
-    exports: [PetsService],
+    providers: [PetsService, PetVaccinesService],
+    exports: [PetsService, PetVaccinesService],
 })
 export class PetsModule {}
