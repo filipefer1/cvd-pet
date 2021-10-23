@@ -1,42 +1,31 @@
+import { Storage } from '@google-cloud/storage';
 import { Injectable } from '@nestjs/common';
 import { S3 } from 'aws-sdk';
+import path from 'path';
 import { v4 as uuid } from 'uuid';
 import { config } from '../../config/configuration';
+import { File } from '../../shared/interfaces/file.interface';
+import { CloudStorageService } from './cloud-storage-service.service';
 
 import { MediaRepository } from './medias.repository';
 
 @Injectable()
 export class MediaService {
-    constructor(private readonly mediaRepository: MediaRepository) {}
+    constructor(
+        private readonly mediaRepository: MediaRepository,
+        private readonly cloudStorageService: CloudStorageService,
+    ) {}
 
-    async create(dataBuffer: Buffer, filename: string) {
-        const s3 = new S3();
-        const key = `${uuid()}-${filename}`;
-        const uploadResult = await s3
-            .upload({
-                Bucket: config.AWS.AWS_PUBLIC_BUCKET_NAME,
-                Body: dataBuffer,
-                Key: key,
-            })
-            .promise();
+    async create(file: File) {
+        const image = await this.cloudStorageService.uploadFile(file, '');
 
         const media = this.mediaRepository.create({
-            destination: uploadResult.Location,
-            originalName: filename,
-            key,
-            title: key,
+            destination: image.publicUrl,
+            originalName: file.originalname,
+            key: image.name,
+            title: image.name,
         });
 
         return this.mediaRepository.save(media);
-    }
-
-    async deletePublicFile(key: string) {
-        const s3 = new S3();
-        await s3
-            .deleteObject({
-                Bucket: config.AWS.AWS_PUBLIC_BUCKET_NAME,
-                Key: key,
-            })
-            .promise();
     }
 }
