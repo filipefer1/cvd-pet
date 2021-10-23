@@ -11,13 +11,7 @@ export class CloudStorageService {
     private storage: Storage;
 
     constructor() {
-        this.storage = new Storage({
-            keyFilename: join(
-                __dirname,
-                `../../${config.GCS.GCS_KEY_FILENAME}`,
-            ),
-            projectId: config.GCS.CGS_PROJECT_ID,
-        });
+        this.storage = new Storage();
         this.bucket = this.storage.bucket(config.GCS.GCS_BUCKET);
     }
 
