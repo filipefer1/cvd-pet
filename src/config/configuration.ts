@@ -10,6 +10,6 @@ export const config = {
     GCS: {
         CGS_PROJECT_ID: process.env.CGS_PROJECT_ID,
         GCS_BUCKET: process.env.GCS_BUCKET,
-        GCS_KEY_FILENAME: process.env.GCS_KEY_FILENAME,
+        GCS_KEY_FILENAME: process.env.GOOGLE_CREDENTIALS,
     },
 };
