@@ -40,4 +40,4 @@ lerna-debug.log*
 # DOCKER
 .docker/db/data
 
-cvd-pet-credentials.json
+google-credentials.json
