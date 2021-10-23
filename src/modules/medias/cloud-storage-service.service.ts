@@ -19,8 +19,6 @@ export class CloudStorageService {
             projectId: config.GCS.CGS_PROJECT_ID,
         });
         this.bucket = this.storage.bucket(config.GCS.GCS_BUCKET);
-        console.log('\x1b[35m', config.GCS.GCS_BUCKET);
-        console.log('\x1b[35m', `../../../${config.GCS.GCS_KEY_FILENAME}`);
     }
 
     private setDestination(destination: string): string {
@@ -41,6 +39,9 @@ export class CloudStorageService {
     }
 
     async uploadFile(uploadedFile: File, destination: string): Promise<any> {
+        console.log('\x1b[35m', config.GCS.GCS_BUCKET);
+        console.log('\x1b[35m', `../../../../${config.GCS.GCS_KEY_FILENAME}`);
+
         const fileName =
             this.setDestination(destination) + this.setFilename(uploadedFile);
         const file = this.bucket.file(fileName);
