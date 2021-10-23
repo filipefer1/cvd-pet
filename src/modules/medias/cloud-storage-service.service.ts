@@ -14,11 +14,13 @@ export class CloudStorageService {
         this.storage = new Storage({
             keyFilename: join(
                 __dirname,
-                `../../../${config.GCS.GCS_KEY_FILENAME}`,
+                `../../${config.GCS.GCS_KEY_FILENAME}`,
             ),
             projectId: config.GCS.CGS_PROJECT_ID,
         });
         this.bucket = this.storage.bucket(config.GCS.GCS_BUCKET);
+        console.log('\x1b[35m', config.GCS.GCS_BUCKET);
+        console.log('\x1b[35m', `../../../${config.GCS.GCS_KEY_FILENAME}`);
     }
 
     private setDestination(destination: string): string {
