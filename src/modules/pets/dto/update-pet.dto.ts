@@ -1,4 +1,11 @@
-import { PartialType } from '@nestjs/mapped-types';
+import { PickType } from '@nestjs/swagger';
 import { CreatePetDto } from './create-pet.dto';
 
-export class UpdatePetDto extends PartialType(CreatePetDto) {}
+export class UpdatePetDto extends PickType(CreatePetDto, [
+    'name',
+    'animal_race',
+    'birth_date',
+    'heigth',
+    'weight',
+    'sex',
+]) {}

@@ -1,7 +1,20 @@
-import { User } from '../../users/user.entity';
+import { ApiProperty } from '@nestjs/swagger';
+
+class PartialUser {
+    @ApiProperty()
+    email: string;
+
+    @ApiProperty()
+    id: string;
+
+    @ApiProperty()
+    createdAt: Date;
+}
 
 export class LoginResponseDto {
-    user: Partial<User>;
+    @ApiProperty()
+    user: PartialUser;
 
+    @ApiProperty()
     accessToken: string;
 }

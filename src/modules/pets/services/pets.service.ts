@@ -8,7 +8,7 @@ import { PetRepository } from '../repositories/pets.repository';
 export class PetsService {
     constructor(private readonly petRepository: PetRepository) {}
 
-    async create(dto: CreatePetDto) {
+    async create(dto: CreatePetDto): Promise<Pet> {
         const pet = this.petRepository.create(dto);
 
         return this.petRepository.save(pet);
