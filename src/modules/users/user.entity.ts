@@ -1,4 +1,4 @@
-import { BeforeInsert, Column, Entity } from 'typeorm';
+import { BeforeInsert, BeforeUpdate, Column, Entity } from 'typeorm';
 import * as bcrypt from 'bcryptjs';
 import { EntityBase } from '../../shared/entity-base';
 
@@ -22,6 +22,13 @@ export class User extends EntityBase {
 
     @BeforeInsert()
     private hashPassword() {
+        if (this.password) {
+            this.password = bcrypt.hashSync(this.password, 8);
+        }
+    }
+
+    @BeforeUpdate()
+    private encryptPassword(): void {
         if (this.password) {
             this.password = bcrypt.hashSync(this.password, 8);
         }

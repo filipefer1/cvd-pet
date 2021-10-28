@@ -16,7 +16,6 @@ export class MediaService {
         const media = this.mediaRepository.create({
             destination: image.publicUrl,
             originalName: file.originalname,
-            key: image.name,
             title: image.name,
         });
 

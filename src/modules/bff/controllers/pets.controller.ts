@@ -9,11 +9,17 @@ import {
     UseGuards,
     ValidationPipe,
     HttpCode,
+    UploadedFile,
+    BadRequestException,
+    UseInterceptors,
 } from '@nestjs/common';
-import { ApiBody, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { ApiBody, ApiConsumes, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { File } from '../../../shared/interfaces/file.interface';
 import { UserLogged } from '../../auth/decorators/user-logged.decorator';
 import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
 import { IUserLogged } from '../../auth/interfaces/user-logged';
+import { MediaService } from '../../medias/medias.service';
 import { CreatePetDto } from '../../pets/dto/create-pet.dto';
 import { PetResponse } from '../../pets/dto/pet-response';
 import { UpdatePetDto } from '../../pets/dto/update-pet.dto';
@@ -23,18 +29,30 @@ import { PetsService } from '../../pets/services/pets.service';
 @UseGuards(JwtAuthGuard)
 @Controller('pets')
 export class PetsController {
-    constructor(private readonly petsService: PetsService) {}
+    constructor(
+        private readonly petsService: PetsService,
+        private readonly mediaService: MediaService,
+    ) {}
 
     @Post()
+    @UseInterceptors(FileInterceptor('file'))
+    @ApiConsumes('multipart/form-data')
     @ApiBody({ type: CreatePetDto })
     @ApiOkResponse({ type: PetResponse })
-    create(
+    async create(
         @UserLogged() user: IUserLogged,
         @Body(ValidationPipe) createPetDto: CreatePetDto,
+        @UploadedFile() file: File,
     ) {
+        if (!file) {
+            throw new BadRequestException('Uma imagem precisa ser enviada');
+        }
+
+        const media = await this.mediaService.create(file);
         return this.petsService.create({
             ...createPetDto,
             userId: user.userId,
+            media,
         });
     }
 

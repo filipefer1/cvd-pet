@@ -11,7 +11,4 @@ export class Media extends EntityBase {
 
     @Column()
     originalName: string;
-
-    @Column()
-    key: string;
 }

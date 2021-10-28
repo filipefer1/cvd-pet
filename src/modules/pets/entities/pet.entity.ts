@@ -1,5 +1,6 @@
-import { Column, Entity, ManyToOne } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne } from 'typeorm';
 import { EntityBase } from '../../../shared/entity-base';
+import { Media } from '../../medias/media.entity';
 import { User } from '../../users/user.entity';
 
 @Entity()
@@ -27,4 +28,11 @@ export class Pet extends EntityBase {
 
     @Column()
     userId: string;
+
+    @OneToOne(() => Media)
+    @JoinColumn()
+    media: Media;
+
+    @Column()
+    mediaId: string;
 }

@@ -1,5 +1,6 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsDateString, IsDefined, IsOptional, IsString } from 'class-validator';
+import { Media } from '../../medias/media.entity';
 
 export class CreatePetDto {
     @IsString()
@@ -34,4 +35,6 @@ export class CreatePetDto {
 
     @ApiProperty()
     userId: string;
+
+    media: Media;
 }
