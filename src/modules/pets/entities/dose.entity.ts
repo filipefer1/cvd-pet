@@ -23,7 +23,7 @@ export class Dose extends EntityBase {
     veterinary?: string;
 
     @ManyToOne(() => PetVaccines, (petVaccines) => petVaccines.doses)
-    petVaccines: string;
+    petVaccines: PetVaccines;
 
     @Column()
     petVaccinesId: string;

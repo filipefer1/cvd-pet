@@ -2,6 +2,7 @@ import { Type } from 'class-transformer';
 import {
     IsDateString,
     IsDefined,
+    IsOptional,
     IsPositive,
     IsString,
     ValidateNested,
@@ -12,19 +13,27 @@ export class CreateDose {
     application_date: Date;
 
     @IsDateString()
-    manufacturing_date: Date;
+    @IsOptional()
+    manufacturing_date?: Date;
 
     @IsDateString()
-    expiration_date: Date;
+    @IsOptional()
+    expiration_date?: Date;
 
     @IsPositive()
     order: number;
 
     @IsString()
-    dosage: string;
+    @IsOptional()
+    dosage?: string;
 
     @IsString()
-    veterinary: string;
+    @IsOptional()
+    veterinary?: string;
+
+    @IsString()
+    @IsOptional()
+    petVaccinesId?: string;
 }
 
 export class CreatePetVaccinesDto {

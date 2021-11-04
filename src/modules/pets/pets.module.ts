@@ -5,6 +5,7 @@ import { PetRepository } from './repositories/pets.repository';
 import { DoseRepository } from './repositories/dose.repository';
 import { PetVaccinesRepository } from './repositories/pet-vaccines.repository';
 import { PetVaccinesService } from './services/pet-vaccines.service';
+import { DosesService } from './services/doses.service';
 
 @Module({
     imports: [
@@ -14,7 +15,7 @@ import { PetVaccinesService } from './services/pet-vaccines.service';
             PetVaccinesRepository,
         ]),
     ],
-    providers: [PetsService, PetVaccinesService],
-    exports: [PetsService, PetVaccinesService],
+    providers: [PetsService, PetVaccinesService, DosesService],
+    exports: [PetsService, PetVaccinesService, DosesService],
 })
 export class PetsModule {}

@@ -1,5 +1,6 @@
 import { ConflictException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { errorMessages } from '../../shared/error-messages';
 import { CreateUserDto } from './create-user.dto';
 import { User } from './user.entity';
 import { UserRepository } from './user.repository';
@@ -38,13 +39,15 @@ export class UserService {
         const userWithSameCpf = await this.cpfExists(dto.cpf);
 
         if (userWithSameCpf) {
-            throw new ConflictException('same cpf');
+            throw new ConflictException(errorMessages.USER.CPF_ALREADY_EXISTS);
         }
 
         const userWithSameEmail = await this.emailExists(dto.email);
 
         if (userWithSameEmail) {
-            throw new ConflictException('same email');
+            throw new ConflictException(
+                errorMessages.USER.EMAIL_ALREADY_EXISTS,
+            );
         }
 
         return;

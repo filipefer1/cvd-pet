@@ -3,12 +3,9 @@ import {
     Get,
     Post,
     Body,
-    Patch,
     Param,
-    Delete,
     UseGuards,
     ValidationPipe,
-    HttpCode,
 } from '@nestjs/common';
 import { UserLogged } from '../../auth/decorators/user-logged.decorator';
 import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
@@ -34,10 +31,13 @@ export class PetVaccinesController {
         return this.petVaccinesService.findAll(petId);
     }
 
-    // @Get(':id')
-    // findOne(@Param('id') petId: string, @UserLogged() user: IUserLogged) {
-    //     return this.petsService.findOne(petId, user.userId);
-    // }
+    @Get(':petVaccineId/details')
+    findOne(
+        @Param('petVaccineId') petVaccineId: string,
+        @UserLogged() user: IUserLogged,
+    ) {
+        return this.petVaccinesService.findOne(petVaccineId, user.userId);
+    }
 
     // @Patch(':id')
     // update(
