@@ -23,6 +23,7 @@ import { MediaService } from '../../medias/medias.service';
 import { CreatePetDto } from '../../pets/dto/create-pet.dto';
 import { PetResponse } from '../../pets/dto/pet-response';
 import { UpdatePetDto } from '../../pets/dto/update-pet.dto';
+import { Pet } from '../../pets/entities/pet.entity';
 import { PetsService } from '../../pets/services/pets.service';
 
 @ApiTags('pets')
@@ -64,24 +65,42 @@ export class PetsController {
 
     @Get(':id')
     @ApiOkResponse({ type: PetResponse })
-    findOne(@Param('id') petId: string, @UserLogged() user: IUserLogged) {
-        return this.petsService.findOne(petId, user.userId);
+    async findOne(@Param('id') petId: string, @UserLogged() user: IUserLogged) {
+        const pet = await this.petsService.findOne(petId, user.userId);
+        return this.formatPet(pet);
     }
 
     @Patch(':id')
     @ApiBody({ type: UpdatePetDto })
     @ApiOkResponse({ type: PetResponse })
-    update(
+    async update(
         @Param('id') id: string,
         @Body() updatePetDto: UpdatePetDto,
         @UserLogged() user: IUserLogged,
     ) {
-        return this.petsService.update(id, user.userId, updatePetDto);
+        const pet = await this.petsService.update(
+            id,
+            user.userId,
+            updatePetDto,
+        );
+        return this.formatPet(pet);
     }
 
     @Delete(':id')
     @HttpCode(204)
     remove(@Param('id') id: string, @UserLogged() user: IUserLogged) {
         return this.petsService.remove(id, user.userId);
+    }
+
+    private formatPet(pet: Pet) {
+        return {
+            id: pet.id,
+            name: pet.name,
+            animal_race: pet.animal_race,
+            weight: pet.weight,
+            height: pet.heigth,
+            birth_date: pet.birth_date,
+            sex: pet.sex,
+        };
     }
 }

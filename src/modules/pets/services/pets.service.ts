@@ -15,9 +15,12 @@ export class PetsService {
     }
 
     async findAll(userId: string) {
-        return this.petRepository.find({
+        const pets = await this.petRepository.find({
+            relations: ['media'],
             where: { userId },
         });
+
+        return this.formatPets(pets);
     }
 
     async findOne(petId: string, userId: string) {
@@ -28,6 +31,7 @@ export class PetsService {
         if (!pet) {
             throw new NotFoundException('Pet não encontrado');
         }
+
         return pet;
     }
 
@@ -48,5 +52,14 @@ export class PetsService {
                 pet[key] = dto[key];
             }
         });
+    }
+
+    private formatPets(pets: Pet[]) {
+        return pets.map((pet) => ({
+            id: pet.id,
+            name: pet.name,
+            animal_race: pet.animal_race,
+            image: pet.media.destination,
+        }));
     }
 }

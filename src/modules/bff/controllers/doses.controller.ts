@@ -1,9 +1,7 @@
 import {
     Controller,
-    Get,
     Post,
     Body,
-    Param,
     UseGuards,
     ValidationPipe,
 } from '@nestjs/common';
