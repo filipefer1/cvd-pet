@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsDefined, IsEmail, IsString } from 'class-validator';
+import { IsDefined, IsEmail, IsString, Validate } from 'class-validator';
+import { CpfValidator } from '../../validators/cpf.validator';
 
 export class CreateUserDto {
     @IsString()
@@ -19,6 +20,7 @@ export class CreateUserDto {
 
     @IsString()
     @IsDefined()
+    @Validate(CpfValidator)
     @ApiProperty()
     cpf: string;
 }
