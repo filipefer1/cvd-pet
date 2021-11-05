@@ -4,11 +4,15 @@ import {
     Body,
     UseGuards,
     ValidationPipe,
+    Patch,
+    Param,
+    Get,
 } from '@nestjs/common';
 import { UserLogged } from '../../auth/decorators/user-logged.decorator';
 import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
 import { IUserLogged } from '../../auth/interfaces/user-logged';
 import { CreateDose } from '../../pets/dto/create-pet-vaccines.dto';
+import { UpdateDoseDto } from '../../pets/dto/update-dose.dto';
 import { DosesService } from '../../pets/services/doses.service';
 
 @UseGuards(JwtAuthGuard)
@@ -22,5 +26,22 @@ export class DosesController {
         @Body(ValidationPipe) dto: CreateDose,
     ) {
         return this.dosesService.create(dto);
+    }
+
+    @Get(':petVaccinesId')
+    index(
+        @Param('petVaccinesId') petVaccinesId: string,
+        @UserLogged() user: IUserLogged,
+    ) {
+        return this.dosesService.findAll(petVaccinesId);
+    }
+
+    @Patch(':doseId')
+    update(
+        @Param('doseId') doseId: string,
+        @UserLogged() user: IUserLogged,
+        @Body(ValidationPipe) dto: UpdateDoseDto,
+    ) {
+        return this.dosesService.update(doseId, dto);
     }
 }
