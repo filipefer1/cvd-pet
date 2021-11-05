@@ -1,5 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateDose } from '../dto/create-pet-vaccines.dto';
+import { UpdateDoseDto } from '../dto/update-dose.dto';
 import { DoseRepository } from '../repositories/dose.repository';
 
 @Injectable()
@@ -10,5 +11,21 @@ export class DosesService {
         const newDose = this.doseRepository.create(dose);
 
         return this.doseRepository.save(newDose);
+    }
+
+    async update(doseId: string, dto: UpdateDoseDto) {
+        const dose = await this.doseRepository.findOne(doseId);
+
+        if (!dose) {
+            throw new NotFoundException(`Dose with ID "${doseId}" not found`);
+        }
+
+        this.doseRepository.merge(dose, dto);
+
+        return this.doseRepository.save(dose);
+    }
+
+    async findAll(petVaccinesId: string) {
+        return this.doseRepository.find({ where: { petVaccinesId } });
     }
 }
