@@ -21,7 +21,7 @@ import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
 import { IUserLogged } from '../../auth/interfaces/user-logged';
 import { MediaService } from '../../medias/medias.service';
 import { CreatePetDto } from '../../pets/dto/create-pet.dto';
-import { PetResponse } from '../../pets/dto/pet-response';
+import { PetDetailsResponse, PetResponse } from '../../pets/dto/pet-response';
 import { UpdatePetDto } from '../../pets/dto/update-pet.dto';
 import { Pet } from '../../pets/entities/pet.entity';
 import { PetsService } from '../../pets/services/pets.service';
@@ -49,6 +49,8 @@ export class PetsController {
             throw new BadRequestException('Uma imagem precisa ser enviada');
         }
 
+        this.validateImage(file);
+
         const media = await this.mediaService.create(file);
         return this.petsService.create({
             ...createPetDto,
@@ -64,7 +66,7 @@ export class PetsController {
     }
 
     @Get(':id')
-    @ApiOkResponse({ type: PetResponse })
+    @ApiOkResponse({ type: PetDetailsResponse })
     async findOne(@Param('id') petId: string, @UserLogged() user: IUserLogged) {
         const pet = await this.petsService.findOne(petId, user.userId);
         return this.formatPet(pet);
@@ -83,6 +85,7 @@ export class PetsController {
             user.userId,
             updatePetDto,
         );
+
         return this.formatPet(pet);
     }
 
@@ -102,5 +105,13 @@ export class PetsController {
             birth_date: pet.birth_date,
             sex: pet.sex,
         };
+    }
+
+    private validateImage(file: File) {
+        const mimeType = file.mimetype.split('/');
+
+        if (mimeType[0] !== 'image') {
+            throw new BadRequestException('Tipo de imagem inválido.');
+        }
     }
 }

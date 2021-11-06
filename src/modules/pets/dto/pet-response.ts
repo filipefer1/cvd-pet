@@ -1,7 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsDateString, IsDefined, IsOptional, IsString } from 'class-validator';
 
-export class PetResponse {
+class BasePetResponse {
+    @ApiProperty()
+    @IsString()
+    @IsDefined()
+    id: string;
+
     @ApiProperty()
     @IsString()
     @IsDefined()
@@ -10,45 +15,28 @@ export class PetResponse {
     @ApiProperty()
     @IsString()
     @IsOptional()
-    animal_race?: string;
-
+    animal_race: string;
+}
+export class PetResponse extends BasePetResponse {
     @ApiProperty()
     @IsString()
     @IsOptional()
-    heigth?: string;
+    image: string;
+}
 
+export class PetDetailsResponse extends BasePetResponse {
     @ApiProperty()
     @IsString()
     @IsOptional()
-    weight?: string;
+    height: string;
 
     @ApiProperty()
     @IsDateString()
     @IsOptional()
-    birth_date?: Date;
+    birth_date: Date;
 
     @ApiProperty()
     @IsString()
-    @IsDefined()
+    @IsOptional()
     sex: string;
-
-    @ApiProperty()
-    @IsString()
-    @IsDefined()
-    userId: string;
-
-    @ApiProperty()
-    @IsString()
-    @IsDefined()
-    id: string;
-
-    @ApiProperty()
-    @IsDateString()
-    @IsOptional()
-    createdAt: Date;
-
-    @ApiProperty()
-    @IsDateString()
-    @IsOptional()
-    updatedAt: Date;
 }

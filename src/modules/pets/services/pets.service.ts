@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreatePetDto } from '../dto/create-pet.dto';
+import { PetResponse } from '../dto/pet-response';
 import { UpdatePetDto } from '../dto/update-pet.dto';
 import { Pet } from '../entities/pet.entity';
 import { PetRepository } from '../repositories/pets.repository';
@@ -14,7 +15,7 @@ export class PetsService {
         return this.petRepository.save(pet);
     }
 
-    async findAll(userId: string) {
+    async findAll(userId: string): Promise<PetResponse[]> {
         const pets = await this.petRepository.find({
             relations: ['media'],
             where: { userId },
