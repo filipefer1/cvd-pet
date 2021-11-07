@@ -22,4 +22,15 @@ export class EntityBase {
         onUpdate: 'CURRENT_TIMESTAMP',
     })
     updatedAt: Date;
+
+    public static of<Type>(
+        params: Partial<Type>,
+        type: { new (): Type },
+    ): Type {
+        const entity = new type();
+
+        Object.assign(entity, params);
+
+        return entity;
+    }
 }

@@ -1,4 +1,10 @@
-import { BeforeInsert, BeforeUpdate, Column, Entity } from 'typeorm';
+import {
+    BeforeInsert,
+    BeforeUpdate,
+    Column,
+    Entity,
+    ManyToMany,
+} from 'typeorm';
 import * as bcrypt from 'bcryptjs';
 import { EntityBase } from '../../shared/entity-base';
 
@@ -33,4 +39,12 @@ export class User extends EntityBase {
             this.password = bcrypt.hashSync(this.password, 8);
         }
     }
+
+    // public static of(params: Partial<User>): User {
+    //     const user = new User();
+
+    //     Object.assign(user, params);
+
+    //     return user;
+    // }
 }

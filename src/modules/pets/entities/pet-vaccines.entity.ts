@@ -1,12 +1,21 @@
-import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
+import {
+    Column,
+    Entity,
+    JoinColumn,
+    ManyToOne,
+    OneToMany,
+    OneToOne,
+} from 'typeorm';
 import { EntityBase } from '../../../shared/entity-base';
 import { Dose } from './dose.entity';
 import { Pet } from './pet.entity';
+import { Vaccine } from './vaccine.entity';
 
 @Entity()
 export class PetVaccines extends EntityBase {
-    @Column()
-    name: string;
+    @OneToOne(() => Vaccine)
+    @JoinColumn()
+    vaccine: Vaccine;
 
     @ManyToOne(() => Pet)
     pet: Pet;
