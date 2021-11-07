@@ -39,7 +39,7 @@ export class CreateDose {
 export class CreatePetVaccinesDto {
     @IsString()
     @IsDefined()
-    name: string;
+    vaccineId: string;
 
     @IsString()
     @IsDefined()

@@ -8,6 +8,7 @@ import { MediasController } from './controllers/medias.controller';
 import { PetVaccinesController } from './controllers/pet-vaccines.controller';
 import { PetsController } from './controllers/pets.controller';
 import { UserController } from './controllers/user.controller';
+import { VaccinesController } from './controllers/vaccines.controller';
 
 @Module({
     imports: [UserModule, AuthModule, PetsModule, MediaModule],
@@ -17,6 +18,7 @@ import { UserController } from './controllers/user.controller';
         PetVaccinesController,
         MediasController,
         DosesController,
+        VaccinesController,
     ],
 })
 export class BffModule {}

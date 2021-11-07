@@ -12,7 +12,6 @@ export class MediaService {
 
     async create(file: File) {
         const image = await this.cloudStorageService.uploadFile(file, '');
-
         const media = this.mediaRepository.create({
             destination: image.publicUrl,
             originalName: file.originalname,
