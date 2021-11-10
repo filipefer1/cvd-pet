@@ -29,10 +29,10 @@ export class Pet extends EntityBase {
     @Column()
     userId: string;
 
-    @OneToOne(() => Media)
+    @OneToOne(() => Media, { nullable: true })
     @JoinColumn()
     media: Media;
 
-    @Column()
-    mediaId: string;
+    @Column({ nullable: true })
+    mediaId?: string;
 }

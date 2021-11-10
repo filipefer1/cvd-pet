@@ -21,7 +21,7 @@ export class PetResponse extends BasePetResponse {
     @ApiProperty()
     @IsString()
     @IsOptional()
-    image: string;
+    image?: string | null;
 }
 
 export class PetDetailsResponse extends BasePetResponse {

@@ -45,17 +45,16 @@ export class PetsController {
         @Body(ValidationPipe) createPetDto: CreatePetDto,
         @UploadedFile() file: File,
     ) {
-        if (!file) {
-            throw new BadRequestException('Uma imagem precisa ser enviada');
-        }
+        // if (!file) {
+        //     throw new BadRequestException('Uma imagem precisa ser enviada');
+        // }
 
-        this.validateImage(file);
+        // this.validateImage(file);
 
-        const media = await this.mediaService.create(file);
+        // const media = await this.mediaService.create(file);
         return this.petsService.create({
             ...createPetDto,
             userId: user.userId,
-            media,
         });
     }
 

@@ -19,6 +19,7 @@ export class PetsService {
         const pets = await this.petRepository.find({
             relations: ['media'],
             where: { userId },
+            order: { createdAt: 'DESC' },
         });
 
         return this.formatPets(pets);
@@ -60,7 +61,7 @@ export class PetsService {
             id: pet.id,
             name: pet.name,
             animal_race: pet.animal_race,
-            image: pet.media.destination,
+            image: pet.media?.destination ? pet.media?.destination : null,
         }));
     }
 }
