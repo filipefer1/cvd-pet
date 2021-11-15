@@ -22,6 +22,26 @@ export class PetResponse extends BasePetResponse {
     @IsString()
     @IsOptional()
     image?: string | null;
+
+    @ApiProperty()
+    @IsString()
+    @IsOptional()
+    height: string;
+
+    @ApiProperty()
+    @IsString()
+    @IsOptional()
+    weight: string;
+
+    @ApiProperty()
+    @IsDateString()
+    @IsOptional()
+    birth_date: Date;
+
+    @ApiProperty()
+    @IsString()
+    @IsOptional()
+    sex: string;
 }
 
 export class PetDetailsResponse extends BasePetResponse {
