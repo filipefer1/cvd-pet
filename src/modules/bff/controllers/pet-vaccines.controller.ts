@@ -7,6 +7,7 @@ import {
     UseGuards,
     ValidationPipe,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { UserLogged } from '../../auth/decorators/user-logged.decorator';
 import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
 import { IUserLogged } from '../../auth/interfaces/user-logged';
@@ -15,6 +16,7 @@ import { PetVaccinesService } from '../../pets/services/pet-vaccines.service';
 
 @UseGuards(JwtAuthGuard)
 @Controller('pet-vaccines')
+@ApiTags('pet-vaccines')
 export class PetVaccinesController {
     constructor(private readonly petVaccinesService: PetVaccinesService) {}
 

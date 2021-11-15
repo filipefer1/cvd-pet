@@ -31,6 +31,11 @@ export class PetDetailsResponse extends BasePetResponse {
     height: string;
 
     @ApiProperty()
+    @IsString()
+    @IsOptional()
+    weight: string;
+
+    @ApiProperty()
     @IsDateString()
     @IsOptional()
     birth_date: Date;
