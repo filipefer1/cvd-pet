@@ -5,7 +5,7 @@ export class UpdatePetDto extends PickType(CreatePetDto, [
     'name',
     'animal_race',
     'birth_date',
-    'heigth',
+    'height',
     'weight',
     'sex',
 ]) {}

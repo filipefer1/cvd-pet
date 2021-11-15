@@ -12,7 +12,7 @@ export class Pet extends EntityBase {
     animal_race?: string;
 
     @Column({ nullable: true })
-    heigth?: string;
+    height?: string;
 
     @Column({ nullable: true })
     weight?: string;

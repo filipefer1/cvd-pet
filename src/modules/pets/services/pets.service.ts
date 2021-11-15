@@ -63,7 +63,7 @@ export class PetsService {
             animal_race: pet.animal_race,
             image: pet.media?.destination ? pet.media?.destination : null,
             weight: pet.weight,
-            height: pet.heigth,
+            height: pet.height,
             birth_date: pet.birth_date,
             sex: pet.sex,
         }));

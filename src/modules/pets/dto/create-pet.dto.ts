@@ -17,7 +17,7 @@ export class CreatePetDto {
     @IsString()
     @IsOptional()
     @ApiPropertyOptional()
-    heigth?: string;
+    height?: string;
 
     @IsString()
     @IsOptional()

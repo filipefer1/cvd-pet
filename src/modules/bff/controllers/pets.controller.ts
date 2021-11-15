@@ -100,7 +100,7 @@ export class PetsController {
             name: pet.name,
             animal_race: pet.animal_race,
             weight: pet.weight,
-            height: pet.heigth,
+            height: pet.height,
             birth_date: pet.birth_date,
             sex: pet.sex,
         };
