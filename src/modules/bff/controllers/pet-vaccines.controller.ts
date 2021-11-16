@@ -7,11 +7,15 @@ import {
     UseGuards,
     ValidationPipe,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { UserLogged } from '../../auth/decorators/user-logged.decorator';
 import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
 import { IUserLogged } from '../../auth/interfaces/user-logged';
 import { CreatePetVaccinesDto } from '../../pets/dto/create-pet-vaccines.dto';
+import {
+    PetVaccinesDetailsResponseDto,
+    PetVaccinesResponseDto,
+} from '../../pets/dto/pet-vaccines-response';
 import { PetVaccinesService } from '../../pets/services/pet-vaccines.service';
 
 @UseGuards(JwtAuthGuard)
@@ -29,11 +33,13 @@ export class PetVaccinesController {
     }
 
     @Get(':petId')
+    @ApiOkResponse({ type: [PetVaccinesResponseDto] })
     findAll(@UserLogged() user: IUserLogged, @Param('petId') petId: string) {
         return this.petVaccinesService.findAll(petId);
     }
 
     @Get(':petVaccineId/details')
+    @ApiOkResponse({ type: PetVaccinesDetailsResponseDto })
     findOne(
         @Param('petVaccineId') petVaccineId: string,
         @UserLogged() user: IUserLogged,

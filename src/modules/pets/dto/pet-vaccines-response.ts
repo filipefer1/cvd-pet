@@ -1,15 +1,30 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Type } from 'class-transformer';
 import {
     IsDateString,
     IsDefined,
     IsOptional,
     IsPositive,
     IsString,
-    ValidateNested,
 } from 'class-validator';
 
-export class CreateDose {
+export class PetVaccinesResponseDto {
+    @ApiProperty()
+    @IsString()
+    @IsDefined()
+    id: string;
+
+    @ApiProperty()
+    @IsString()
+    @IsDefined()
+    name: string;
+
+    @ApiProperty()
+    @IsString()
+    @IsOptional()
+    createdAt: Date;
+}
+
+class ResponseDoseDto {
     @IsDateString()
     @ApiProperty()
     application_date: Date;
@@ -37,27 +52,20 @@ export class CreateDose {
     @IsOptional()
     @ApiProperty()
     veterinary?: string;
-
-    @IsString()
-    @IsOptional()
-    @ApiProperty()
-    petVaccinesId?: string;
 }
 
-export class CreatePetVaccinesDto {
+export class PetVaccinesDetailsResponseDto {
+    @ApiProperty()
     @IsString()
     @IsDefined()
-    @ApiProperty()
-    vaccineId: string;
+    id: string;
 
+    @ApiProperty()
     @IsString()
     @IsDefined()
-    @ApiProperty()
-    petId: string;
+    name: string;
 
-    @ValidateNested({ each: true })
-    @Type(() => CreateDose)
     @IsDefined()
-    @ApiProperty({ type: [CreateDose] })
-    doses: CreateDose[];
+    @ApiProperty({ type: [ResponseDoseDto] })
+    doses: ResponseDoseDto[];
 }
