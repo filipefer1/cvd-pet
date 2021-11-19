@@ -8,11 +8,31 @@ export default class CreateVaccines implements Seeder {
         const vaccines = [
             {
                 id: uuid(),
-                name: 'Cinomose',
+                name: 'V8',
             },
             {
                 id: uuid(),
-                name: 'Parvovirose',
+                name: 'V10',
+            },
+            {
+                id: uuid(),
+                name: 'Giárdia',
+            },
+            {
+                id: uuid(),
+                name: 'Tosse canina',
+            },
+            {
+                id: uuid(),
+                name: 'Antirrábica',
+            },
+            {
+                id: uuid(),
+                name: 'V4',
+            },
+            {
+                id: uuid(),
+                name: 'V5',
             },
         ];
 
