@@ -17,7 +17,7 @@ export class PetVaccinesService {
         const pet = await this.petsService.findOne(dto.petId, userId);
         const vaccine = await this.vaccinesService.findOne(dto.vaccineId);
 
-        //verificar se o pet pode ter a vacina mais de uma vez
+        dto.doses[0].order = 1;
 
         const petVaccine = this.petVaccinesRepository.create({
             vaccine,

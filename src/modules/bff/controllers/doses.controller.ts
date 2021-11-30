@@ -31,17 +31,14 @@ export class DosesController {
     }
 
     @Get(':petVaccinesId')
-    index(
-        @Param('petVaccinesId') petVaccinesId: string,
-        @UserLogged() user: IUserLogged,
-    ) {
+    index(@Param('petVaccinesId') petVaccinesId: string) {
         return this.dosesService.findAll(petVaccinesId);
     }
 
     @Patch(':doseId')
     update(
         @Param('doseId') doseId: string,
-        @UserLogged() user: IUserLogged,
+
         @Body(ValidationPipe) dto: UpdateDoseDto,
     ) {
         return this.dosesService.update(doseId, dto);

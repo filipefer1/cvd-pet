@@ -8,6 +8,14 @@ export class DosesService {
     constructor(private readonly doseRepository: DoseRepository) {}
 
     async create(dose: CreateDose) {
+        const lastDose = await this.doseRepository.find({
+            where: { petVaccinesId: dose.petVaccinesId },
+            order: { createdAt: 'DESC' },
+            take: 1,
+        });
+
+        dose.order = lastDose[0] ? lastDose[0].order + 1 : 1;
+
         const newDose = this.doseRepository.create(dose);
 
         return this.doseRepository.save(newDose);
@@ -26,6 +34,9 @@ export class DosesService {
     }
 
     async findAll(petVaccinesId: string) {
-        return this.doseRepository.find({ where: { petVaccinesId } });
+        return this.doseRepository.find({
+            where: { petVaccinesId },
+            order: { order: 'ASC' },
+        });
     }
 }

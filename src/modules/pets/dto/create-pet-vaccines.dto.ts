@@ -4,7 +4,6 @@ import {
     IsDateString,
     IsDefined,
     IsOptional,
-    IsPositive,
     IsString,
     ValidateNested,
 } from 'class-validator';
@@ -24,8 +23,6 @@ export class CreateDose {
     @ApiProperty()
     expiration_date?: Date;
 
-    @IsPositive()
-    @ApiProperty()
     order: number;
 
     @IsString()

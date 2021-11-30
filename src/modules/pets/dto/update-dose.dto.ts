@@ -1,18 +1,29 @@
-import { IsDateString, IsString } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
+import { IsDateString, IsOptional, IsString } from 'class-validator';
 
 export class UpdateDoseDto {
+    @ApiProperty()
     @IsDateString()
-    application_date: Date;
+    @IsOptional()
+    application_date?: Date;
 
+    @ApiProperty()
     @IsDateString()
-    manufacturing_date: Date;
+    @IsOptional()
+    manufacturing_date?: Date;
 
+    @ApiProperty()
     @IsDateString()
-    expiration_date: Date;
+    @IsOptional()
+    expiration_date?: Date;
 
+    @ApiProperty()
     @IsString()
-    dosage: string;
+    @IsOptional()
+    dosage?: string;
 
+    @ApiProperty()
     @IsString()
-    veterinary: string;
+    @IsOptional()
+    veterinary?: string;
 }
