@@ -13,8 +13,7 @@ import { Vaccine } from './vaccine.entity';
 
 @Entity()
 export class PetVaccines extends EntityBase {
-    @OneToOne(() => Vaccine)
-    @JoinColumn()
+    @ManyToOne(() => Vaccine)
     vaccine: Vaccine;
 
     @ManyToOne(() => Pet)

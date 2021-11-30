@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+    BadRequestException,
+    Injectable,
+    NotFoundException,
+} from '@nestjs/common';
 import { CreatePetVaccinesDto } from '../dto/create-pet-vaccines.dto';
 import { PetVaccines } from '../entities/pet-vaccines.entity';
 import { PetVaccinesRepository } from '../repositories/pet-vaccines.repository';
@@ -16,6 +20,17 @@ export class PetVaccinesService {
     async create(dto: CreatePetVaccinesDto, userId: string) {
         const pet = await this.petsService.findOne(dto.petId, userId);
         const vaccine = await this.vaccinesService.findOne(dto.vaccineId);
+
+        const vaccineExists = await this.petVaccinesRepository.findOne({
+            where: {
+                vaccine,
+                pet,
+            },
+        });
+
+        if (vaccineExists) {
+            throw new BadRequestException('Vacina já cadastrada');
+        }
 
         dto.doses[0].order = 1;
 
