@@ -35,6 +35,16 @@ export class UserService {
         return user;
     }
 
+    async findByCpfOrEmail(cpfOrEmail: string) {
+        const user = await this.findByCpf(cpfOrEmail);
+
+        if (user) {
+            return user;
+        }
+
+        return this.findByEmail(cpfOrEmail);
+    }
+
     private async checkUserExistance(dto: CreateUserDto) {
         const userWithSameCpf = await this.cpfExists(dto.cpf);
 
