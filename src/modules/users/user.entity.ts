@@ -19,9 +19,6 @@ export class User extends EntityBase {
     @Column({ type: 'varchar' })
     password: string;
 
-    @Column('varchar', { length: 11, unique: true })
-    cpf: string;
-
     validatePassword(password: string): boolean {
         return bcrypt.compareSync(password, this.password);
     }
