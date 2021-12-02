@@ -34,8 +34,8 @@ export class CreatePetDto {
     @ApiProperty()
     sex: string;
 
-    // @ApiProperty()
-    // file: File;
+    @ApiProperty()
+    file: File;
 
     @ApiProperty()
     userId: string;
