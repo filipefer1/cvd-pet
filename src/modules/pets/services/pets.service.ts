@@ -45,7 +45,8 @@ export class PetsService {
 
     async remove(petId: string, userId: string) {
         const pet = await this.findOne(petId, userId);
-        return this.petRepository.delete(pet.id);
+        pet.deletedAt = new Date();
+        return this.petRepository.save(pet);
     }
 
     private updatePet(dto: Partial<CreatePetDto>, pet: Pet) {

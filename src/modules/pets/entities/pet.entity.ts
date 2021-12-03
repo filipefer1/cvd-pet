@@ -1,4 +1,11 @@
-import { Column, Entity, JoinColumn, ManyToOne, OneToOne } from 'typeorm';
+import {
+    Column,
+    DeleteDateColumn,
+    Entity,
+    JoinColumn,
+    ManyToOne,
+    OneToOne,
+} from 'typeorm';
 import { EntityBase } from '../../../shared/entity-base';
 import { Media } from '../../medias/media.entity';
 import { User } from '../../users/user.entity';
@@ -35,4 +42,7 @@ export class Pet extends EntityBase {
 
     @Column({ nullable: true })
     mediaId?: string;
+
+    @DeleteDateColumn()
+    deletedAt: Date;
 }
